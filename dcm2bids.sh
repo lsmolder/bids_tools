@@ -20,27 +20,32 @@ function Usage {
 
 Usage:
 
-`basename $0` -d DICOM_DIR -i Animal_ID -t Task
+Convert the dicom files from the discom server to BIDS format
+
+`basename $0` -d DICOM_ZIP -i Animal_ID -t Task -d BIDS_DIR
 
 Compulsory arguments:
 
 
      -h:  display help message
 
-     -d:  the directory that contains the dicom files
+     -z:  the dcm zip file that contains the dicom files from dcm server
 
      -i:  animal ID, should be in this format EarPunchNo_CageNo_Gender
 
      -t:  type of task (or lack of)
+
+     -d:  directory where you want to put your nifti BIDS output
 
 
 
 Example:
 
 `basename $0` \
--d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/DICOM \
+-z /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/DICOM \
 -i 01_389630_M \
--t whisker_stimulation
+-t whisker_stimulation \
+-d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/BIDS
 
 USAGE
     exit 1
@@ -52,21 +57,24 @@ if [[ "$1" == "-h" || $# -eq 0 ]];
     Usage >&2
   fi
 
-while getopts "h:d:i:t:" OPT
+while getopts "h:z:i:t:d:" OPT
   do
   case $OPT in
       h) #help
    Usage
    exit 0
    ;;
-      d)  # template
+      z)  # zipped dcm file
    DICOM_DIR=$OPTARG
    ;;
-      i)  # input image
+      i)  # animal id
    ANIMAL_ID=$OPTARG
    ;;
-      t)  # output dir
+      t)  # task type
    TASK=$OPTARG
+   ;;
+      d)  # output bids dir
+   BIDS_DIR=$OPTARG
    ;;
      \?) # getopts issues an error message
    echo "$Usage" >&2
