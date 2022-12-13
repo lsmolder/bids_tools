@@ -29,13 +29,13 @@ Compulsory arguments:
 
      -h:  display help message
 
-     -z:  the dcm zip file that contains the dicom files from dcm server
+     -z:  the dcm zip file that contains the dicom files from dcm server (abspath)
 
      -i:  animal ID, should be in this format EarPunchNo_CageNo_Gender
 
      -t:  type of task (or lack of)
 
-     -d:  directory where you want to put your nifti BIDS output
+     -d:  directory where you want to put your nifti BIDS output (abspath)
 
 
 
@@ -65,7 +65,7 @@ while getopts "h:z:i:t:d:" OPT
    exit 0
    ;;
       z)  # zipped dcm file
-   DICOM_DIR=$OPTARG
+   DICOM_ZIP=$OPTARG
    ;;
       i)  # animal id
    ANIMAL_ID=$OPTARG
@@ -82,3 +82,8 @@ while getopts "h:z:i:t:d:" OPT
    ;;
   esac
 done
+
+
+# decompress the dcm file in the zipped file dir
+zip_dir=`dirname ${DICOM_ZIP}` # get the parent dir
+unzip ${DICOM_ZIP} -d ${zip_dir}
