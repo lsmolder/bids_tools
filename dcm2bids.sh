@@ -14,6 +14,8 @@
 # TODO: take the TTL file as well
 # TODO: take the videos if the task matches whatever you define as video task
 # TODO: add extra desription to the script does
+# TODO: test on Arthur's Brown data as well
+# TODO: delete all unnecessary dirs
 
 function Usage {
     cat <<USAGE
@@ -87,3 +89,7 @@ done
 # decompress the dcm file in the zipped file dir
 zip_dir=`dirname ${DICOM_ZIP}` # get the parent dir
 unzip ${DICOM_ZIP} -d ${zip_dir}
+
+
+# convert dicom to nifti in the same dir as the decompressed zipped file
+dcm2niix ${zip_dir}/DICOM # the default name from the dcm server 
