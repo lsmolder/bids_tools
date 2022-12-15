@@ -19,6 +19,7 @@
 # TODOL multiple sessions, maybe add an extra flag or make conditional if subject existed
 # TODO: take in session number as well
 # TODO: accept field maps as well
+# TODO: add requirements file
 
 
 function Usage {
@@ -100,11 +101,14 @@ done
 ZIP_DIR=`dirname ${DICOM_ZIP}` # get the parent dir
 unzip ${DICOM_ZIP} -d ${ZIP_DIR}
 
-
+# the animal id is earpunch_cagenumber_gender
+# I zeropad the ear number to be three digits in case the number is 2 digits
+# the heudiconv removes the underscore, so a zeropad will make it easier to identify
+# aka 1st 3 places are ear number, next 6 digits are the cage number, anf the letter is the gender
 heudiconv \
 --files ${ZIP_DIR}  \
 --outdir ${BIDS_DIR}  \
---subjects ${ANIMAL_ID}   \
+--subjects `zeropad ${ANIMAL_ID} 12`  \
 --ses ${SESSION_NO} \
 --heuristic heuristic_9T.py  \
 --converter dcm2niix \
