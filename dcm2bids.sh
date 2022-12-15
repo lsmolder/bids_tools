@@ -46,6 +46,8 @@ Compulsory arguments:
 
      -d:  directory where you want to put your nifti BIDS output (abspath)
 
+     -f:  heurisitc file to use (heuristic_9T.py or heuristic_9T_Brown^TBI2AD.py)
+
 
 
 Example:
@@ -55,7 +57,8 @@ Example:
 -i 01_389630_M \
 -s s1 \
 -t whisker_stimulation \
--d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/BIDS
+-d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/BIDS \
+-f heuristic_9T.py
 
 USAGE
     exit 1
@@ -67,7 +70,7 @@ if [[ "$1" == "-h" || $# -eq 0 ]];
     Usage >&2
   fi
 
-while getopts "h:z:i:s:t:d:" OPT
+while getopts "h:z:i:s:t:d:f:" OPT
   do
   case $OPT in
       h) #help
@@ -88,6 +91,9 @@ while getopts "h:z:i:s:t:d:" OPT
    ;;
       d)  # output bids dir
    BIDS_DIR=$OPTARG
+   ;;
+     f)  # output bids dir
+   HEURISTIC=$OPTARG
    ;;
      \?) # getopts issues an error message
    echo "$Usage" >&2
@@ -110,7 +116,7 @@ heudiconv \
 --outdir ${BIDS_DIR}  \
 --subjects `zeropad ${ANIMAL_ID} 12`  \
 --ses ${SESSION_NO} \
---heuristic heuristic_9T.py  \
+--heuristic ${HEURISTIC}  \
 --converter dcm2niix \
 --bids \
 --overwrite
