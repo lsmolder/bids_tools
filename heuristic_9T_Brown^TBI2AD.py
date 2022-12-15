@@ -37,12 +37,6 @@ def infotodict(seqinfo):
     info = {t2w: [], func_rest_R: [], func_rest_RV: []}
 
 
-    # extract the digits of the name to seperate
-    # you can even add the videos
-    # magnitude data has name: 170001, phase: 170002
-    # reverse phase and normal phase
-    # we need the json files as well
-
     for idx, s in enumerate(seqinfo):
         if ('T2_' in s.protocol_name):
             info[t2w].append(s.series_id)
