@@ -36,7 +36,15 @@ def infotodict(seqinfo):
     func_rest_magnitude_RV = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest_run-00{item:01d}_bold_magnitude_RV')
     func_rest_phase_RV = create_key('sub-{subject}/{session}/func/sub-{subject}_{session}_task-rest_run-00{item:01d}_bold_phase_RV')
 
-    info = {t2w: [], func_rest_magnitude_R: [], func_rest_phase_R: [], func_rest_magnitude_RV: [], func_rest_phase_RV: []}
+    # the adj B0MAP
+    fmap= create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_B0MAP')
+
+    info = {t2w: [],
+            func_rest_magnitude_R: [],
+            func_rest_phase_R: [],
+            func_rest_magnitude_RV: [],
+            func_rest_phase_RV: [],
+            fmap: []}
 
 
     # extract the digits of the name to seperate
@@ -61,5 +69,11 @@ def infotodict(seqinfo):
 
         if ('T2star_FID_EPI_sat' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and ("_RV_" in s.series_description):
             info[func_rest_phase_RV].append(s.series_id)
+
+        if ('B0MAP' in s.protocol_name):
+            info[fmap].append(s.series_id)
+
+
+
 
     return info
