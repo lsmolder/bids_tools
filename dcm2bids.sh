@@ -16,6 +16,10 @@
 # TODO: add extra desription to the script does
 # TODO: test on Arthur's Brown data as well
 # TODO: delete all unnecessary dirs
+# TODOL multiple sessions, maybe add an extra flag or make conditional if subject existed
+# TODO: take in session number as well
+# TODO: accept field maps as well
+
 
 function Usage {
     cat <<USAGE
@@ -91,5 +95,12 @@ zip_dir=`dirname ${DICOM_ZIP}` # get the parent dir
 unzip ${DICOM_ZIP} -d ${zip_dir}
 
 
-# convert dicom to nifti in the same dir as the decompressed zipped file
-dcm2niix ${zip_dir}/DICOM # the default name from the dcm server 
+heudiconv \
+--files /Users/aeed/Documents/Work/bids_tools/DICOM  \
+--outdir .  \
+--subjects 10_389629_F   \
+--ses s1 \
+--heuristic heuristic_9T.py  \
+--converter dcm2niix \
+--bids \
+--overwrite
