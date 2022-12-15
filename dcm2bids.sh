@@ -28,7 +28,7 @@ Usage:
 
 Convert the dicom files from the discom server to BIDS format
 
-`basename $0` -d DICOM_ZIP -i Animal_ID -t Task -d BIDS_DIR
+`basename $0` -d DICOM_ZIP -i Animal_ID -t Task -s s1 -d BIDS_DIR
 
 Compulsory arguments:
 
