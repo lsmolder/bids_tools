@@ -40,7 +40,7 @@ Compulsory arguments:
 
      -i:  animal ID, should be in this format EarPunchNo_CageNo_Gender
 
-     -s: session number
+     -s:  session number
 
      -t:  type of task (or lack of)
 
