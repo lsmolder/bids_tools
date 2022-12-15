@@ -10,7 +10,7 @@
 # TODO: normal phase or reverse phase => done
 # TODO: how the dicom should be organized => done (the script takes in the zipped file)
 # TODO: zeropad the earpunch number to 3 places => done
-# TODO: list of possible answers for task
+# TODO: list of possible answers for task (maybe write a new heuristic)
 # TODO: take the TTL file as well
 # TODO: take the videos if the task matches whatever you define as video task
 # TODO: add extra desription to the script does => done
