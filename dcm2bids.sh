@@ -39,6 +39,8 @@ Compulsory arguments:
 
      -i:  animal ID, should be in this format EarPunchNo_CageNo_Gender
 
+     -s: session number
+
      -t:  type of task (or lack of)
 
      -d:  directory where you want to put your nifti BIDS output (abspath)
@@ -50,6 +52,7 @@ Example:
 `basename $0` \
 -z /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/DICOM \
 -i 01_389630_M \
+-s s1 \
 -t whisker_stimulation \
 -d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/BIDS
 
@@ -63,7 +66,7 @@ if [[ "$1" == "-h" || $# -eq 0 ]];
     Usage >&2
   fi
 
-while getopts "h:z:i:t:d:" OPT
+while getopts "h:z:i:s:t:d:" OPT
   do
   case $OPT in
       h) #help
@@ -75,6 +78,9 @@ while getopts "h:z:i:t:d:" OPT
    ;;
       i)  # animal id
    ANIMAL_ID=$OPTARG
+   ;;
+   s)  # animal id
+   SESSION_NO=$OPTARG
    ;;
       t)  # task type
    TASK=$OPTARG
@@ -91,15 +97,15 @@ done
 
 
 # decompress the dcm file in the zipped file dir
-zip_dir=`dirname ${DICOM_ZIP}` # get the parent dir
-unzip ${DICOM_ZIP} -d ${zip_dir}
+ZIP_DIR=`dirname ${DICOM_ZIP}` # get the parent dir
+unzip ${DICOM_ZIP} -d ${ZIP_DIR}
 
 
 heudiconv \
---files /Users/aeed/Documents/Work/bids_tools/DICOM  \
---outdir .  \
---subjects 10_389629_F   \
---ses s1 \
+--files ${ZIP_DIR}  \
+--outdir ${BIDS_DIR}  \
+--subjects ${ANIMAL_ID}   \
+--ses ${SESSION_NO} \
 --heuristic heuristic_9T.py  \
 --converter dcm2niix \
 --bids \
