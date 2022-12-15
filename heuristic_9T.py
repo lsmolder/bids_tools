@@ -49,16 +49,17 @@ def infotodict(seqinfo):
         if ('T2_TurboRARE' in s.protocol_name):
             info[t2w].append(s.series_id)
         # if the name does not contain "_RV_" then it is a normal phase
-        if ('T2star_FID_EPI_sat' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1):
+        if ('T2star_FID_EPI_sat' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and ("_RV_" not in s.series_description):
             info[func_rest_magnitude_R].append(s.series_id)
-
-        if ('T2star_FID_EPI_sat' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2):
+        #
+        if ('T2star_FID_EPI_sat' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and ("_RV_" not in s.series_description):
             info[func_rest_phase_R].append(s.series_id)
-
-        # if the name contains "_RV_" then it is a reveresed phase
+        #
+        # # if the name contains "_RV_" then it is a reveresed phase
         if ('T2star_FID_EPI_sat' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and ("_RV_" in s.series_description):
             info[func_rest_magnitude_RV].append(s.series_id)
 
         if ('T2star_FID_EPI_sat' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and ("_RV_" in s.series_description):
             info[func_rest_phase_RV].append(s.series_id)
+
     return info
