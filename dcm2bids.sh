@@ -3,22 +3,22 @@
 # take the animal number, dicom directory, and task and convert them to bids format
 
 #
-# TODO: take in the name
+# TODO: take in the name => done
 # TODO: the task
 # TODO: cut the videos to match the name
-# TODO: phase or magnitude
-# TODO: normal phase or reverse phase
-# TODO: how the dicom should be organized
-# TODO: zeropad the earpunch number to 3 places
+# TODO: phase or magnitude => done
+# TODO: normal phase or reverse phase => done
+# TODO: how the dicom should be organized => done (the script takes in the zipped file)
+# TODO: zeropad the earpunch number to 3 places => done
 # TODO: list of possible answers for task
 # TODO: take the TTL file as well
 # TODO: take the videos if the task matches whatever you define as video task
-# TODO: add extra desription to the script does
-# TODO: test on Arthur's Brown data as well
-# TODO: delete all unnecessary dirs
-# TODOL multiple sessions, maybe add an extra flag or make conditional if subject existed
-# TODO: take in session number as well
-# TODO: accept field maps as well
+# TODO: add extra desription to the script does => done
+# TODO: test on Arthur's Brown data as well => done
+# TODO: delete all unnecessary dirs => done (delet the DICOM dir)
+# TODOL multiple sessions, maybe add an extra flag or make conditional if subject existed => done (works automatically)
+# TODO: take in session number as well => done
+# TODO: accept field maps as well => done
 # TODO: add requirements file
 
 
@@ -120,3 +120,7 @@ heudiconv \
 --converter dcm2niix \
 --bids \
 --overwrite
+
+
+# delete the dicom folder
+rm ${ZIP_DIR}
