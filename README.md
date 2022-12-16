@@ -3,7 +3,8 @@
 * the data from the dicom server is downloaded as a zipped file containing all the data in dcm format
 * the data (after unzipping it) is usually organized as follow:
 
-```DICOM
+```
+DICOM
     └── 20221126
         └── 15Ear_390792^^^^
             └── 20221126_01.FD20847F
