@@ -1,0 +1,7 @@
+- you need to install heudiconv:
+https://github.com/nipy/heudiconv
+
+- you can easily install it using:
+>>> python -m pip install heudiconv
+
+- Alternatively, you can use the docker and modify the dcm2bids.sh script to use the docker instead of the binary
