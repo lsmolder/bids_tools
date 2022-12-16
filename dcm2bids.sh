@@ -20,6 +20,7 @@
 # TODO: take in session number as well => done
 # TODO: accept field maps as well => done
 # TODO: add requirements file
+# TODO: check that the runs are organized correctly
 
 
 function Usage {
