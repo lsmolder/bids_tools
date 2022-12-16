@@ -103,16 +103,17 @@ while getopts "h:z:i:s:t:d:f:" OPT
 done
 
 
-# decompress the dcm file in the zipped file dir
+# decompress the dcm file in the zipped file dir (it overwrites if exists automatically)
 ZIP_DIR=`dirname ${DICOM_ZIP}` # get the parent dir
-unzip ${DICOM_ZIP} -d ${ZIP_DIR}
+mkdir ${ZIP_DIR}/${ANIMAL_ID}_dcm
+unzip -o ${DICOM_ZIP} -d ${ZIP_DIR}/${ANIMAL_ID}_dcm
 
 # the animal id is earpunch_cagenumber_gender
 # I zeropad the ear number to be three digits in case the number is 2 digits
 # the heudiconv removes the underscore, so a zeropad will make it easier to identify
 # aka 1st 3 places are ear number, next 6 digits are the cage number, anf the letter is the gender
 heudiconv \
---files ${ZIP_DIR}  \
+--files ${ZIP_DIR}/${ANIMAL_ID}_dcm   \
 --outdir ${BIDS_DIR}  \
 --subjects `zeropad ${ANIMAL_ID} 12`  \
 --ses ${SESSION_NO} \
@@ -123,4 +124,4 @@ heudiconv \
 
 
 # delete the dicom folder
-rm ${ZIP_DIR}
+rm -rf ${ZIP_DIR}/${ANIMAL_ID}_dcm
