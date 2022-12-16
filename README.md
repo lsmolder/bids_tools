@@ -1,7 +1,7 @@
 # BIDS TOOLS
-* scripts to organize 9.4T data and videos into BIDS format
-* the data from the dicom server is downloaded as a zipped file containing all the data in dcm format
-* the data (after unzipping it) is usually organized as follow:
+* Scripts to organize 9.4T data and videos into BIDS format
+* The data from the dicom server is downloaded as a zipped file containing all the data in dcm format
+* The data (after unzipping it) is usually organized as follow:
 
 ```
 DICOM
@@ -33,7 +33,7 @@ DICOM
             └── 50001
                 └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.50001.1.20221119.BF04DF23.dcm
 ```
-** The dcm2bids.sh takes the zipped file, animal id, session no, type of fmri data (if any), \n
+-- The dcm2bids.sh takes the zipped file, animal id, session no, type of fmri data (if any), \n
 output dir, and a heuristic file
 
 
@@ -47,10 +47,10 @@ output dir, and a heuristic file
 -f heuristic_9T_rest_awake.py
 ```
 
-** The heuristic files are tailored towards different projects, but it is easy to modify for a new project
+-- The heuristic files are tailored towards different projects, but it is easy to modify for a new project
 
-** The preferred animal id is: EarPunchNo_CageNo_Gender e.g. 10_389629_F. The EarPunch no gets zeropadded to be 3 digits
-** The final subject name will be: sub-010389629F
+-- The preferred animal id is: EarPunchNo_CageNo_Gender e.g. 10_389629_F. The EarPunch no gets zeropadded to be 3 digits
+-- The final subject name will be: sub-010389629F
 
 ### The bids output will look like:
 ```
