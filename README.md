@@ -33,7 +33,7 @@ DICOM
             └── 50001
                 └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.50001.1.20221119.BF04DF23.dcm
 ```
-**The dcm2bids.sh takes the zipped file, animal id, session no, type of fmri data (if any), \noutput dir, and a heuristic file**
+**The dcm2bids.sh takes the zipped file, animal id, session no, type of fmri data (if any), \n output dir, and a heuristic file**
 
 
 ```
@@ -46,9 +46,10 @@ DICOM
 -f heuristic_9T_rest_awake.py
 ```
 
-**The heuristic files are tailored towards different projects, but it is easy to modify for a new project**
+**The heuristic files are tailored towards different projects, but it is easy to modify for a new project.**
 
-**The preferred animal id is: EarPunchNo_CageNo_Gender e.g. 10_389629_F. The EarPunch no gets zeropadded to be 3 digits**
+**The preferred animal id is: EarPunchNo_CageNo_Gender e.g. 10_389629_F. The EarPunch no gets zeropadded to be 3 digits.**
+
 **The final subject name will be: sub-010389629F**
 
 ### The bids output will look like:
