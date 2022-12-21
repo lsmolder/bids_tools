@@ -21,6 +21,8 @@
 # TODO: accept field maps as well => done
 # TODO: add requirements file
 # TODO: check that the runs are organized correctly
+# TODO: extract useful info from the excel sheet
+# TODO: extract the subject's name and sessions from the zip or json
 
 
 function Usage {
