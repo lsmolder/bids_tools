@@ -23,6 +23,7 @@
 # TODO: check that the runs are organized correctly
 # TODO: extract useful info from the excel sheet
 # TODO: extract the subject's name and sessions from the zip or json
+# TODO: check if the json files have acquistion date and start and duration
 
 
 function Usage {
