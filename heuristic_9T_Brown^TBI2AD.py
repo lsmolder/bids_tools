@@ -41,10 +41,10 @@ def infotodict(seqinfo):
         if ('T2_' in s.protocol_name):
             info[t2w].append(s.series_id)
         # if the name does not contain "_RV_" then it is a normal phase
-        if ('T2star_rsFMRI' in s.protocol_name) and ("_RV_" not in s.series_description):
+        if ('T2star' in s.protocol_name) and ("_RV_" not in s.series_description):
             info[func_rest_R].append(s.series_id)
         #
-        if ('T2star_rsFMRI' in s.protocol_name) and ("_RV_" in s.series_description):
+        if ('T2star' in s.protocol_name) and ("_RV_" in s.series_description):
             info[func_rest_RV].append(s.series_id)
 
     return info
