@@ -1,0 +1,33 @@
+└─ sub-01/
+   └─ anat/
+      ├─ sub-01_part-mag_T1w.nii.gz
+      ├─ sub-01_part-mag_T1w.json
+      ├─ sub-01_part-phase_T1w.nii.gz
+      └─ sub-01_part-phase_T1w.json
+
+  └─ sub-01/
+   └─ func/
+      ├─ sub-01_task-cuedSGT_run-1_echo-1_bold.nii.gz
+      ├─ sub-01_task-cuedSGT_run-1_echo-1_bold.json
+      ├─ sub-01_task-cuedSGT_run-1_echo-2_bold.nii.gz
+      ├─ sub-01_task-cuedSGT_run-1_echo-2_bold.json
+      ├─ sub-01_task-cuedSGT_run-1_echo-3_bold.nii.gz
+      └─ sub-01_task-cuedSGT_run-1_echo-3_bold.json
+
+  └─ sub-01/
+   └─ func/
+      ├─ sub-01_task-cuedSGT_part-mag_bold.nii.gz
+      ├─ sub-01_task-cuedSGT_part-mag_bold.json
+      ├─ sub-01_task-cuedSGT_part-phase_bold.nii.gz
+      ├─ sub-01_task-cuedSGT_part-phase_bold.json
+      ├─ sub-01_task-cuedSGT_part-mag_sbref.nii.gz
+      ├─ sub-01_task-cuedSGT_part-mag_sbref.json
+      ├─ sub-01_task-cuedSGT_part-phase_sbref.nii.gz
+      └─ sub-01_task-cuedSGT_part-phase_sbref.json
+
+└─ sub-1/
+   └─ dwi                               # MultipartID/
+      ├─ sub-1_dir-AP_run-1_dwi.nii.gz  # dwi_1
+      ├─ sub-1_dir-AP_run-2_dwi.nii.gz  # dwi_1
+      ├─ sub-1_dir-PA_run-1_dwi.nii.gz  # dwi_1
+      └─ sub-1_dir-PA_run-2_dwi.nii.gz  # dwi_1
