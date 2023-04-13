@@ -31,11 +31,11 @@ def infotodict(seqinfo):
     seqitem: run number during scanning
     subindex: sub index within group
     """
-    t2w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-00{item:01d}_T2w')
-    func_rest_R = create_key('sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-rest_run-00{'
+    t2w = create_key('sub-{subject}/{session}/anat/sub-{subject}_{session}_run-{item:01d}_T2w')
+    func_rest_R = create_key('sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-rest_run-{'
                              'item:01d}_bold')
 
-    func_rest_RV = create_key('sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-rest_run-00{'
+    func_rest_RV = create_key('sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-rest_run-{'
                               'item:01d}_bold')
 
     info = {t2w: [], func_rest_R: [], func_rest_RV: []}
