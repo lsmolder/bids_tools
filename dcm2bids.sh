@@ -4,14 +4,14 @@
 
 #
 # TODO: take in the name => done
-# TODO: the task
+# TODO: the task => done
 # TODO: cut the videos to match the name
 # TODO: phase or magnitude => done
 # TODO: normal phase or reverse phase => done
 # TODO: how the dicom should be organized => done (the script takes in the zipped file)
 # TODO: zeropad the earpunch number to 3 places => done
-# TODO: list of possible answers for task (maybe write a new heuristic)
-# TODO: take the TTL file as well
+# TODO: list of possible answers for task (maybe write a new heuristic) => done
+# TODO: take the TTL file as well (stimulus file)
 # TODO: take the videos if the task matches whatever you define as video task
 # TODO: add extra desription to the script does => done
 # TODO: test on Arthur's Brown data as well => done
@@ -33,7 +33,7 @@ Usage:
 
 Convert the dicom files from the discom server to BIDS format
 
-`basename $0` -d DICOM_ZIP -i Animal_ID -t Task -s s1 -d BIDS_DIR
+$(basename "$0") -d DICOM_ZIP -i Animal_ID -t Task -s s1 -d BIDS_DIR
 
 Compulsory arguments:
 
@@ -56,7 +56,7 @@ Compulsory arguments:
 
 Example:
 
-`basename $0` \
+$(basename "$0") \
 -z /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/DICOM \
 -i 01_389630_M \
 -s s1 \
@@ -108,24 +108,24 @@ done
 
 
 # decompress the dcm file in the zipped file dir (it overwrites if exists automatically)
-ZIP_DIR=`dirname ${DICOM_ZIP}` # get the parent dir
-mkdir ${ZIP_DIR}/${ANIMAL_ID}_dcm
-unzip -o ${DICOM_ZIP} -d ${ZIP_DIR}/${ANIMAL_ID}_dcm
+ZIP_DIR=$(dirname "${DICOM_ZIP}") # get the parent dir
+mkdir "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm
+unzip -o "${DICOM_ZIP}" -d "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm
 
 # the animal id is earpunch_cagenumber_gender
 # I zeropad the ear number to be three digits in case the number is 2 digits
 # the heudiconv removes the underscore, so a zeropad will make it easier to identify
 # aka 1st 3 places are ear number, next 6 digits are the cage number, anf the letter is the gender
 heudiconv \
---files ${ZIP_DIR}/${ANIMAL_ID}_dcm   \
---outdir ${BIDS_DIR}  \
---subjects `zeropad ${ANIMAL_ID} 12`  \
---ses ${SESSION_NO} \
---heuristic ${HEURISTIC}  \
+--files "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm   \
+--outdir "${BIDS_DIR}"  \
+--subjects $(zeropad "${ANIMAL_ID}" 12)  \
+--ses "${SESSION_NO}" \
+--heuristic "${HEURISTIC}"  \
 --converter dcm2niix \
 --bids \
 --overwrite
 
 
 # delete the dicom folder
-rm -rf ${ZIP_DIR}/${ANIMAL_ID}_dcm
+rm -rf "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm
