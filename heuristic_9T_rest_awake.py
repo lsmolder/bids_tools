@@ -1,5 +1,8 @@
 import os
 import glob
+# Heudiconv cannot extract correct information from the dcm, it switches dim4 and dim3
+# that's why you have to put dim3 > 30, which is resonable for functional data (we can go even to 40, just to be sure)
+# the 30 here is the number of slices
 
 # define a task list to check if the series descirpiotn has any one of those words
 # you consider it as resting state
@@ -148,136 +151,138 @@ def infotodict(seqinfo):
             info[t1w].append(s.series_id)
         # ==================================================rest========================================================
         # if the name does not contain "_RV_" then it is a normal phase
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
-                s.dim4 > 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
+                s.dim3 > 40) and all(task.lower() not in s.series_description.lower() for task in tasks):
             info[func_rest_magnitude_R].append(s.series_id)
         #
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
-                s.dim4 > 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
+                s.dim3 > 40) and all(task.lower() not in s.series_description.lower() for task in tasks) \
+                and (int(s.dcm_dir_name[-1] == 2)):
             info[func_rest_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reveresed phase
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
-                s.dim4 > 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
+                s.dim3 > 40) and all(task.lower() not in s.series_description.lower() for task in tasks):
             info[func_rest_magnitude_RV].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
-                s.dim4 > 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
+                s.dim3 > 40) and all(task.lower() not in s.series_description.lower() for task in tasks) \
+                and (int(s.dcm_dir_name[-1] == 2)):
             info[func_rest_phase_RV].append(s.series_id)
         # ========================================================40avg=================================================
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "40avg" in s.series_description) and (
                 s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
             info[func_rest_40avg_R].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "40avg" in s.series_description) and (
                 s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
             info[func_rest_40avge_RV].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "20avg" in s.series_description) and (
                 s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
             info[func_rest_20avg_R].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "20avg" in s.series_description) and (
                 s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks):
             info[func_rest_20avge_RV].append(s.series_id)
         # ===============================================visual=========================================================
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 30):
             info[func_task_visual_magnitude_R].append(s.series_id)
         #
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40) and (int(s.dcm_dir_name[-1] == 2)):
             info[func_task_visual_phase_R].append(s.series_id)
         #
-        # # if the name contains "_RV_" then it is a reveresed phase
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        # # if the name contains "_RV_" then it is a reversed phase
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40):
             info[func_task_visual_magnitude_RV].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40) and (int(s.dcm_dir_name[-1] == 2)):
             info[func_task_visual_phase_RV].append(s.series_id)
         # =================================================whisker======================================================
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40):
             info[func_task_whisker_magnitude_R].append(s.series_id)
         #
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40) and (int(s.dcm_dir_name[-1] == 2)):
             info[func_task_whisker_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reveresed phase
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40):
             info[func_task_whisker_magnitude_RV].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40) and (int(s.dcm_dir_name[-1] == 2)):
             info[func_task_whisker_phase_RV].append(s.series_id)
         # ==================================================visual and whisker==========================================
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40):
             info[func_task_visual_whisker_magnitude_R].append(s.series_id)
         #
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40) and (int(s.dcm_dir_name[-1] == 2)):
             info[func_task_visual_whisker_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reveresed phase
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 1) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40):
             info[func_task_visual_whisker_magnitude_RV].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (int(s.dcm_dir_name[-1]) == 2) and (
+        if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (
-                s.dim4 > 1):
+                s.dim3 > 40) and (int(s.dcm_dir_name[-1] == 2)):
             info[func_task_visual_whisker_phase_RV].append(s.series_id)
         # =========================================================B0map================================================
 
