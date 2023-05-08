@@ -59,7 +59,7 @@ Example:
 $(basename "$0") \
 -z /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/DICOM \
 -i 01_389630_M \
--s s1 \
+-s 1 \
 -t whisker_stimulation \
 -d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/BIDS \
 -f heuristic_9T.py
