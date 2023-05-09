@@ -1,10 +1,13 @@
 import os
 import glob
+from single_slice_acquisition import add_StackID_folder, add_StackID_file, find_file
+import pydicom
+
 # Heudiconv cannot extract correct information from the dcm, it switches dim4 and dim3
-# that's why you have to put dim3 > 30, which is resonable for functional data (we can go even to 40, just to be sure)
+# that's why you have to put dim3 > 30, which is reasonable for functional data (we can go even to 40, just to be sure)
 # the 30 here is the number of slices
 
-# define a task list to check if the series descirpiotn has any one of those words
+# define a task list to check if the series description has any one of those words
 # you consider it as resting state
 tasks = ["visual", "whisker"]
 
@@ -26,6 +29,7 @@ except NotADirectoryError:
 def create_key(template, outtype='nii.gz', annotation_classes=None):
     if template is None or not template:
         raise ValueError('Template must be a valid format string')
+
     return template, outtype, annotation_classes
 
 
@@ -129,7 +133,6 @@ def infotodict(seqinfo):
             func_task_visual_whisker_phase_R: [],
             func_task_visual_whisker_phase_RV: [],
 
-
             func_rest_40avg_R: [],
             func_rest_40avge_RV: [],
 
@@ -142,8 +145,11 @@ def infotodict(seqinfo):
     # magnitude data has name: 170001, phase: 170002
     # reverse phase and normal phase
     # we need the json files as well
-# TODO: no of volumes
+    # TODO: no of volumes
     for idx, s in enumerate(seqinfo):
+        dcm_file = find_file(s.example_dcm_file)
+        add_StackID_file(dcm_file)
+
         if 'T2_TurboRARE' in s.protocol_name:
             info[t2w].append(s.series_id)
 
