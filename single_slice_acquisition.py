@@ -25,7 +25,7 @@ if len(sys.argv) < 2:
     exit(0)
 
 # TODO: check if StackID exists or not => DONE
-# TODO: run the script as part of the heuristic
+# TODO: run the script as part of the heuristic => DONE
 
 dcm_path = sys.argv[1]
 
