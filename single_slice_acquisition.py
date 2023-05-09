@@ -9,10 +9,25 @@
 import pydicom
 from pydicom.dataset import Dataset
 import os
+import sys
 
+
+def help_message():
+    print("""Input argument missing \n
+    >>> python single_slice_acquisition.py dcm_file.dcm \n
+    """)
+
+
+if len(sys.argv) < 2:
+    help_message()
+    exit(0)
 
 # TODO: check if StackID exists or not
 # TODO: run the script as part of the heuristic
+
+file_path = sys.argv[1]
+
+
 def add_StackID(file_path):
     file_basename = os.path.basename(file_path)
     file_dir = os.path.dirname(file_path)
@@ -20,10 +35,13 @@ def add_StackID(file_path):
     ds = pydicom.dcmread(file_path)
     seq = ds.PerFrameFunctionalGroupsSequence
 
-    for frame in seq:
-        frame.FrameContentSequence[0].StackID = '1'
-        frame.FrameContentSequence[0].InStackPositionNumber = 1
-        dim_index_value = frame.FrameContentSequence[0].DimensionIndexValues
-        frame.FrameContentSequence[0].DimensionIndexValues = [dim_index_value, 1, 1]
-    # it will overwrite the original file
-    ds.save_as(os.path.join(file_dir, file_basename))
+    # check if the file has StackID or not
+    # this equivalent to the first frame
+    if not hasattr(ds.PerFrameFunctionalGroupsSequence[0].FrameContentSequence[0], 'StackID'):
+        for frame in seq:
+            frame.FrameContentSequence[0].StackID = '1'
+            frame.FrameContentSequence[0].InStackPositionNumber = 1
+            dim_index_value = frame.FrameContentSequence[0].DimensionIndexValues
+            frame.FrameContentSequence[0].DimensionIndexValues = [dim_index_value, 1, 1]
+        # it will overwrite the original file
+        ds.save_as(os.path.join(file_dir, file_basename))
