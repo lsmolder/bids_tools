@@ -10,6 +10,7 @@ import pydicom
 from pydicom.dataset import Dataset
 import os
 import sys
+import glob
 
 
 def help_message():
@@ -22,13 +23,13 @@ if len(sys.argv) < 2:
     help_message()
     exit(0)
 
-# TODO: check if StackID exists or not
+# TODO: check if StackID exists or not => DONE
 # TODO: run the script as part of the heuristic
 
 file_path = sys.argv[1]
 
 
-def add_StackID(file_path):
+def add_StackID_file(file_path):
     file_basename = os.path.basename(file_path)
     file_dir = os.path.dirname(file_path)
 
@@ -45,3 +46,10 @@ def add_StackID(file_path):
             frame.FrameContentSequence[0].DimensionIndexValues = [dim_index_value, 1, 1]
         # it will overwrite the original file
         ds.save_as(os.path.join(file_dir, file_basename))
+
+
+def add_StackID_folder(dcm_folder):
+    dcm_files = glob.glob(os.path.join(dcm_folder, '*.dcm'))
+    for file in dcm_files:
+        add_StackID_file(file)
+
