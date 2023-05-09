@@ -13,6 +13,7 @@ import sys
 import glob
 
 
+# you can use the script from the bash or as a python function
 def help_message():
     print("""Input argument missing \n
     >>> python single_slice_acquisition.py dcm_file.dcm \n
@@ -26,14 +27,15 @@ if len(sys.argv) < 2:
 # TODO: check if StackID exists or not => DONE
 # TODO: run the script as part of the heuristic
 
-file_path = sys.argv[1]
+dcm_path = sys.argv[1]
 
 
-def add_StackID_file(file_path):
-    file_basename = os.path.basename(file_path)
-    file_dir = os.path.dirname(file_path)
+def add_StackID_file(dcm_path):
+    print(f"+++++++++++++++Stacking the file: {dcm_path}+++++++++++++++")
+    file_basename = os.path.basename(dcm_path)
+    file_dir = os.path.dirname(dcm_path)
 
-    ds = pydicom.dcmread(file_path)
+    ds = pydicom.dcmread(dcm_path)
     seq = ds.PerFrameFunctionalGroupsSequence
 
     # check if the file has StackID or not
@@ -49,7 +51,20 @@ def add_StackID_file(file_path):
 
 
 def add_StackID_folder(dcm_folder):
-    dcm_files = glob.glob(os.path.join(dcm_folder, '*.dcm'))
-    for file in dcm_files:
-        add_StackID_file(file)
+    for root, _, files in os.walk(dcm_folder):
+        for file in files:
+            if file.lower().endswith('.dcm'):
+                dcm_path = os.path.join(root, file)
+                add_StackID_file(dcm_path)
 
+
+def find_file(target_file):
+    """"the example_dcm_file and dcm_dir_name cannot be joined to give you the abs path
+     as dcm_dir_name will give you the top parent dir, so you need to search for teh abs path for your dcms
+     so, you would take the s.example_dcm_file and search for it in the current dir and its subdir
+     """
+    for root, _, files in os.walk(os.getcwd()):
+        for file in files:
+            if file == target_file:
+                return os.path.join(root, file)
+    return None
