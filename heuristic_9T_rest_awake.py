@@ -34,6 +34,13 @@ def create_key(template, outtype='nii.gz', annotation_classes=None):
 
 
 # ======================================================================================================================
+def filter_files(fl):
+    if fl.endswith(".dcm"):
+        add_StackID_file(fl)
+    return fl
+
+
+# ======================================================================================================================
 def infotodict(seqinfo):
     """Heuristic evaluator for determining which runs belong where
     allowed template fields - follow python string module:
@@ -139,7 +146,6 @@ def infotodict(seqinfo):
             func_rest_20avg_R: [],
             func_rest_20avge_RV: [],
             fmap: []}
-
     # extract the digits of the name to seperate
     # you can even add the videos
     # magnitude data has name: 170001, phase: 170002
@@ -147,9 +153,6 @@ def infotodict(seqinfo):
     # we need the json files as well
     # TODO: no of volumes
     for idx, s in enumerate(seqinfo):
-        dcm_file = find_file(s.example_dcm_file)
-        add_StackID_file(dcm_file)
-
         if 'T2_TurboRARE' in s.protocol_name:
             info[t2w].append(s.series_id)
 
@@ -276,7 +279,7 @@ def infotodict(seqinfo):
                 s.dim3 > 40) and (int(s.dcm_dir_name[-1] == 2)):
             info[func_task_visual_whisker_phase_R].append(s.series_id)
         #
-        # # if the name contains "_RV_" then it is a reveresed phase
+        # # if the name contains "_RV_" then it is a reversed phase
         if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
