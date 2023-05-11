@@ -28,3 +28,8 @@ mv ${dcm_dir}/300003 ${dcm_dir}/300002
 mv ${dcm_dir}/330003 ${dcm_dir}/330002
 mv ${dcm_dir}/340003 ${dcm_dir}/340002
 mv ${dcm_dir}/360003 ${dcm_dir}/360002
+
+# fix 41393072 ses-03
+dcm_dir="/Users/aeed/Documents/Work/BIDS/dicom/41393072F/DICOM/20230407/41_393072_F^^^^/20230407_01.9A6EB914"
+mv ${dcm_dir}/430003 ${dcm_dir}/430001
+mv ${dcm_dir}/430004 ${dcm_dir}/430002
