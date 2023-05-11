@@ -69,15 +69,19 @@ def infotodict(seqinfo):
 
     # single resting-state volume with 20 and 40 averages
     # someitmes, I acquired 20 avg, sometimes 40 avg
-    func_rest_40avg_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_40avg')
-    func_rest_40avge_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_40avg')
-
-    func_rest_20avg_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_20avg')
-    func_rest_20avge_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_20avg')
+    # func_rest_40avg_R = create_key(
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_40avg')
+    # func_rest_40avg_RV = create_key(
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_40avg')
+    #
+    # func_rest_20avg_R = create_key(
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_20avg')
+    # func_rest_20avg_RV = create_key(
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_20avg')
+    func_rest_multi_avg_R = create_key(
+        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_multi_avg')
+    func_rest_multi_avg_RV = create_key(
+        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_multi_avg')
     # ==================================================================================================================
     # tasks: visual
     func_task_visual_magnitude_R = create_key(
@@ -142,13 +146,16 @@ def infotodict(seqinfo):
             func_task_visual_whisker_phase_R: [],
             func_task_visual_whisker_phase_RV: [],
 
-            func_rest_40avg_R: [],
-            func_rest_40avge_RV: [],
+            # func_rest_40avg_R: [],
+            # func_rest_40avg_RV: [],
+            #
+            # func_rest_20avg_R: [],
+            # func_rest_20avg_RV: [],
+            func_rest_multi_avg_R: [],
+            func_rest_multi_avg_RV: [],
 
-            func_rest_20avg_R: [],
-            func_rest_20avge_RV: [],
             fmap: []}
-    # extract the digits of the name to seperate
+    # extract the digits of the name to separate
     # you can even add the videos
     # magnitude data has name: 170001, phase: 170002
     # reverse phase and normal phase
@@ -186,34 +193,27 @@ def infotodict(seqinfo):
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 2) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_phase_RV].append(s.series_id)
-        # ========================================================40avg=================================================
+        # ============================================40 or 20avg=======================================================
+        # we have some subjects with 20 and 40 averages, combine them to multiple avgs
         if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
-                "40avg" in s.series_description) and (
-                s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks) \
+                "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
-            info[func_rest_40avg_R].append(s.series_id)
+            info[func_rest_multi_avg_R].append(s.series_id)
 
         if ('EPI' in s.protocol_name) and (
                 "_RV_" in s.series_description) and (
-                "40avg" in s.series_description) and (
-                s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks) \
+                "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
-            info[func_rest_40avge_RV].append(s.series_id)
+            info[func_rest_multi_avg_RV].append(s.series_id)
 
-        if ('EPI' in s.protocol_name) and (
-                "_RV_" not in s.series_description) and (
-                "20avg" in s.series_description) and (
-                s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks) \
-                and 'VOLUME' in s.image_type:
-            info[func_rest_20avg_R].append(s.series_id)
-
-        if ('EPI' in s.protocol_name) and (
-                "_RV_" in s.series_description) and (
-                "20avg" in s.series_description) and (
-                s.dim4 == 1) and all(task.lower() not in s.series_description.lower() for task in tasks) \
-                and 'VOLUME' in s.image_type:
-            info[func_rest_20avge_RV].append(s.series_id)
+        # if ('EPI' in s.protocol_name) and ( "_RV_" not in s.series_description) and ( "20avg" in
+        # s.series_description) and all(task.lower() not in s.series_description.lower() for task in tasks) \ and
+        # 'VOLUME' in s.image_type: info[func_rest_20avg_R].append(s.series_id)
+        #
+        # if ('EPI' in s.protocol_name) and ( "_RV_" in s.series_description) and ( "20avg" in s.series_description)
+        # and all(task.lower() not in s.series_description.lower() for task in tasks) \ and 'VOLUME' in s.image_type:
+        # info[func_rest_20avg_RV].append(s.series_id)
         # ===============================================visual=========================================================
         if ('EPI' in s.protocol_name) and (
                 "_RV_" not in s.series_description) and (
