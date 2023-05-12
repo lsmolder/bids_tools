@@ -4,7 +4,7 @@
 
 #
 # TODO: take in the name => done
-# TODO: the task => done
+# TODO: the task => done, you don't need to specify the task, it will be extracted from the dcm file
 # TODO: cut the videos to match the name
 # TODO: phase or magnitude => done
 # TODO: normal phase or reverse phase => done
@@ -36,7 +36,7 @@ Usage:
 
 Convert the dicom files from the discom server to BIDS format
 
-$(basename "$0") -d DICOM_ZIP -i Animal_ID -t Task -s s1 -d BIDS_DIR
+$(basename "$0") -d DICOM_ZIP -i Animal_ID -s s1 -d BIDS_DIR
 
 Compulsory arguments:
 
@@ -48,8 +48,6 @@ Compulsory arguments:
      -i:  animal ID, should be in this format EarPunchNo_CageNo_Gender
 
      -s:  session number
-
-     -t:  type of task (or lack of)
 
      -d:  directory where you want to put your nifti BIDS output (abspath)
 
@@ -63,7 +61,6 @@ $(basename "$0") \
 -z /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/DICOM \
 -i 01_389630_M \
 -s 1 \
--t whisker_stimulation \
 -d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/BIDS \
 -f heuristic_9T.py
 
@@ -75,7 +72,7 @@ if [[ "$1" == "-h" || $# -eq 0 ]]; then
   Usage >&2
 fi
 
-while getopts "h:z:i:s:t:d:f:" OPT; do
+while getopts "h:z:i:s:d:f:" OPT; do
   case $OPT in
   h) #help
     Usage
@@ -89,9 +86,6 @@ while getopts "h:z:i:s:t:d:f:" OPT; do
     ;;
   s) # animal id
     SESSION_NO=$OPTARG
-    ;;
-  t) # task type
-    TASK=$OPTARG
     ;;
   d) # output bids dir
     BIDS_DIR=$OPTARG
