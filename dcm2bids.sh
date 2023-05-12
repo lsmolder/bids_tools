@@ -118,8 +118,8 @@ unzip -o "${DICOM_ZIP}" -d "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm
 heudiconv \
   --files "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm \
   --outdir "${BIDS_DIR}" \
-  --subjects $(zeropad "${ANIMAL_ID}" 12) \
-  --ses "${SESSION_NO}" \
+  --subjects $(zeropad "${ANIMAL_ID}" 11) \
+  --ses $(zeropad "${SESSION_NO}" 2) \
   --heuristic "${HEURISTIC}" \
   --converter dcm2niix \
   --bids \
