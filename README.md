@@ -7,31 +7,31 @@
 DICOM
 └── 20221119
     └── Menon^AS-MBN^^^^
-        └── 20221119_01.A0002D22
-            ├── 170001
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.170001.1.20221119.7BAD6A76.dcm
-            ├── 170002
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.170002.1.20221119.FFC1FD2B.dcm
-            ├── 180001
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.180001.1.20221119.CEE9FC56.dcm
-            ├── 180002
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.180002.1.20221119.672ABE33.dcm
-            ├── 190001
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.190001.1.20221119.75D4BDB3.dcm
-            ├── 190002
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.190002.1.20221119.60725C8A.dcm
-            ├── 200001
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.200001.1.20221119.28625D6F.dcm
-            ├── 200002
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.200002.1.20221119.794EF2FF.dcm
-            ├── 210001
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.210001.1.20221119.0A900199.dcm
-            ├── 210002
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.210002.1.20221119.F4DD181B.dcm
-            ├── 220001
-            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.220001.1.20221119.34A371B7.dcm
-            └── 50001
-                └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.50001.1.20221119.BF04DF23.dcm
+        └── 20221119_01.A002D22
+            ├── 17001
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.17001.1.20221119.7BAD6A76.dcm
+            ├── 17002
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.17002.1.20221119.FFC1FD2B.dcm
+            ├── 18001
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.18001.1.20221119.CEE9FC56.dcm
+            ├── 18002
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.18002.1.20221119.672ABE33.dcm
+            ├── 19001
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.19001.1.20221119.75D4BDB3.dcm
+            ├── 19002
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.19002.1.20221119.60725C8A.dcm
+            ├── 20001
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.20001.1.20221119.28625D6F.dcm
+            ├── 20002
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.20002.1.20221119.794EF2FF.dcm
+            ├── 21001
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.21001.1.20221119.0A900199.dcm
+            ├── 21002
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.21002.1.20221119.F4DD181B.dcm
+            ├── 22001
+            │   └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.22001.1.20221119.34A371B7.dcm
+            └── 5001
+                └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.5001.1.20221119.BF04DF23.dcm
 ```
 **The dcm2bids.sh takes the zipped file, animal id, session no, type of fmri data (if any), output dir, and a heuristic file**
 
@@ -57,23 +57,36 @@ DICOM
 sub-010389629F/
 └── ses-s1
     ├── anat
-    │   ├── sub-00010389629F_ses-s1_run-001_T2w.json
-    │   └── sub-00010389629F_ses-s1_run-001_T2w.nii.gz
+    │   ├── sub-0010389629F_ses-s1_run-001_T2w.json
+    │   └── sub-0010389629F_ses-s1_run-001_T2w.nii.gz
     ├── fmap
-    │   ├── sub-00010389629F_ses-s1_B0MAP.json
-    │   └── sub-00010389629F_ses-s1_B0MAP.nii.gz
+    │   ├── sub-0010389629F_ses-s1_B0MAP.json
+    │   └── sub-0010389629F_ses-s1_B0MAP.nii.gz
     ├── func
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-001_bold_magnitude_R.json
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-001_bold_magnitude_R.nii.gz
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-001_bold_magnitude_RV.json
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-001_bold_magnitude_RV.nii.gz
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-002_bold_magnitude_R.json
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-002_bold_magnitude_R.nii.gz
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-002_bold_magnitude_RV.json
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-002_bold_magnitude_RV.nii.gz
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-003_bold_magnitude_R.json
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-003_bold_magnitude_R.nii.gz
-    │   ├── sub-00010389629F_ses-s1_task-rest_run-003_bold_magnitude_RV.json
-    │   └── sub-00010389629F_ses-s1_task-rest_run-003_bold_magnitude_RV.nii.gz
-    └── sub-00010389629F_ses-s1_scans.tsv
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-001_bold_magnitude_R.json
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-001_bold_magnitude_R.nii.gz
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-001_bold_magnitude_RV.json
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-001_bold_magnitude_RV.nii.gz
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-002_bold_magnitude_R.json
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-002_bold_magnitude_R.nii.gz
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-002_bold_magnitude_RV.json
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-002_bold_magnitude_RV.nii.gz
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-003_bold_magnitude_R.json
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-003_bold_magnitude_R.nii.gz
+    │   ├── sub-0010389629F_ses-s1_task-rest_run-003_bold_magnitude_RV.json
+    │   └── sub-0010389629F_ses-s1_task-rest_run-003_bold_magnitude_RV.nii.gz
+    └── sub-0010389629F_ses-s1_scans.tsv
 ```
+
+- Whenever you are missing some nii files after conversion, always check if the dicom folders have the right names (41003) instead of (41001) for example
+- if this is the case, rename these folders correctly and them to fix_dcm_folders_suffix.sh
+
+- the Acq date and other personal information are omitted by default from json files. In dcm2niix, you just have to add "-ba n" and you will have all the details
+- For heudiconv, you need to define a dcmconfig json file and use the flag "--dcmconfig config_file.json" to use it, the fields of the json files comes from nipype wrapper of the dcm2niix converter.
+- To remove the anonmyity from the json files in heudiconv, you have to set "anon_bids" to "false" in the dcmconfig.json file to pass the "-ba" flag to dcm2niix
+![img_2.png](img_2.png)
+- However, there is a function in bids.py called "tuneup_bids_json_files" to override that and remove any dates from the json files.
+- if you try to use this flag, it will return this error ``ValueError("There must be no dates in .json sidecar")
+ValueError: There must be no dates in .json sidecar``
+- So, you have to comment that out in the bids.py file to keep the dates in the json files.
+![img_1.png](img_1.png)
