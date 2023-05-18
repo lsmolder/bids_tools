@@ -41,7 +41,8 @@ for folder in ${dcm_dir}/*; do
             -ss "${session_no}" \
             -s "${subject_ID}" \
             -f ${heuristic} \
-            --bids 
+            --bids \
+            --dcmconfig "/Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json"
           session_no=$(echo $((session_no + 1)))
           echo "##########################################################"  
         done  
