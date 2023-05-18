@@ -11,12 +11,13 @@ from pydicom.dataset import Dataset
 import os
 import sys
 import glob
+from datetime import datetime
 
 
 # you can use the script from the bash or as a python function
 def help_message():
     print("""Input argument missing \n
-    >>> python single_slice_acquisition.py dcm_file.dcm \n
+    >>> python edit_dcm_header.py dcm_file.dcm \n
     """)
 
 
@@ -68,3 +69,48 @@ def find_file(target_file):
             if file == target_file:
                 return os.path.join(root, file)
     return None
+
+
+def add_acquisition_date(dcm_path):
+    """the AcquisitionDate is missing from the dcm header, so we need to add it
+    All we have is AcquisitionDateTime, however, there is SeriesDate and StudyDate.
+    We need to set an additional field inside the dicom header, so heudiconv can extract it"""
+    print(f"+++++++++++++++Adding AcquisitionDate: {dcm_path}+++++++++++++++")
+    file_basename = os.path.basename(dcm_path)
+    file_dir = os.path.dirname(dcm_path)
+
+    ds = pydicom.dcmread(dcm_path)
+    ds.AcquisitionDate = ds.SeriesDate
+    ds.AcquisitionTime = ds.SeriesTime
+    # it will overwrite the original file
+    ds.save_as(os.path.join(file_dir, file_basename))
+
+
+
+def get_subj_age(scan_date, birth_date):
+    """get the age of the subject at the time of the scan"""
+    # dates look like this: 20190101
+    scan_date = datetime.strptime(scan_date, '%Y%m%d')
+    birth_date = datetime.strptime(birth_date, '%Y%m%d')
+    age = (scan_date - birth_date).days
+    return age
+
+
+
+def modify_dcm_header(dcm_path):
+    """add some of the missing fields in the same function, so you don't import the same file multiple times"""
+    print(f"+++++++++++++++modifying dcm header: {dcm_path}+++++++++++++++")
+    file_basename = os.path.basename(dcm_path)
+    file_dir = os.path.dirname(dcm_path)
+
+    ds = pydicom.dcmread(dcm_path)
+    # these fiedls already exist, you don't need them
+    ds.AcquisitionDate = ds.SeriesDate
+    ds.AcquisitionTime = ds.SeriesTime
+    ds.RepetitionTime = float(ds.SharedFunctionalGroupsSequence[0].MRTimingAndRelatedParametersSequence[0].RepetitionTime)
+    ds.EchoTime = float(ds.SharedFunctionalGroupsSequence[0].MREchoSequence[0].EffectiveEchoTime)
+    ds.SliceThickness = float(ds.SharedFunctionalGroupsSequence[0].PixelMeasuresSequence[0].SliceThickness)
+
+    ds.PatientAge = str(get_subj_age(ds.SeriesDate, ds.PatientBirthDate))
+    # it will overwrite the original file
+    ds.save_as(os.path.join(file_dir, file_basename))
