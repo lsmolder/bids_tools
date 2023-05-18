@@ -5,15 +5,15 @@
 #
 # TODO: take in the name => done
 # TODO: the task => done, you don't need to specify the task, it will be extracted from the dcm file
-# TODO: cut the videos to match the name
+# TODO: cut the videos to match the name => done
 # TODO: phase or magnitude => done
 # TODO: normal phase or reverse phase => done
 # TODO: how the dicom should be organized => done (the script takes in the zipped file)
 # TODO: zeropad the earpunch number to 3 places => done
 # TODO: list of possible answers for task (maybe write a new heuristic) => done
 # TODO: take the TTL file as well (stimulus file)
-# TODO: take the videos if the task matches whatever you define as video task
-# TODO: add extra desription to the script does => done
+# TODO: take the videos if the task matches whatever you define as video task => define manually
+# TODO: add extra description to the script does => done
 # TODO: test on Arthur's Brown data as well => done
 # TODO: delete all unnecessary dirs => done (delete the DICOM dir)
 # TODO: multiple sessions, maybe add an extra flag or make conditional if subject existed => done (works automatically)
@@ -21,13 +21,14 @@
 # TODO: accept field maps as well => done
 # TODO: add requirements file
 # TODO: check that the runs are organized correctly => done
-# TODO: extract useful info from the excel sheet
+# TODO: extract useful info from the excel sheet => done, excel sheets get info from dcm header
 # TODO: extract the subject's name and sessions from the zip or json
-# TODO: check if the json files have acquistion date and start and duration
-# TODO: verify no of output files against no of input files
-# TODO: verify no of output files against no of dcm2niix files
-# TODO: write a script to change dicom fodlers if the names of mag and phase like 430003 430004, not 001 and 002
-# TODO: write a script to count the number of output from bids and input dcms
+# TODO: check if the json files have acquisition date and start and duration => done unanonmize
+# TODO: verify no of output files against no of input files # bad idea, some files are not necessary
+# TODO: verify no of output files against no of dcm2niix files => done (verified manually)
+# TODO: write a script to change dicom folders if the names of mag and phase like 430003 430004, not 001 and 002
+# TODO: write a script to count the number of output from bids and input dcms # bad idea, some files are not necessary like single vol rs
+# TODO: find out why rerunning heudiconv does not work and you have to delete .heudiconv and the data manually
 
 function Usage {
   cat <<USAGE
@@ -117,7 +118,8 @@ heudiconv \
   --heuristic "${HEURISTIC}" \
   --converter dcm2niix \
   --bids \
-  --overwrite
+  --overwrite \
+  --dcmconfig "/Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json"
 
 # delete the dicom folder
 rm -rf "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm
