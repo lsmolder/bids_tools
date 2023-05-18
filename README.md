@@ -85,7 +85,7 @@ sub-010389629F/
 - For heudiconv, you need to define a dcmconfig json file and use the flag "--dcmconfig config_file.json" to use it, the fields of the json files comes from nipype wrapper of the dcm2niix converter.
 - To remove the anonmyity from the json files in heudiconv, you have to set "anon_bids" to "false" in the dcmconfig.json file to pass the "-ba" flag to dcm2niix
 
-![img_2.png](img_2.png)
+    ![img_2.png](img_2.png)
 - However, there is a function in bids.py called "tuneup_bids_json_files" to override that and remove any dates from the json files.
 - if you try to use this flag, it will return this error ``ValueError("There must be no dates in .json sidecar")
 ValueError: There must be no dates in .json sidecar``
