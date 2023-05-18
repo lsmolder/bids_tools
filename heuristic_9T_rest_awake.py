@@ -1,6 +1,6 @@
 import os
 import glob
-from single_slice_acquisition import add_StackID_folder, add_StackID_file, find_file
+from edit_dcm_header import add_StackID_folder, add_StackID_file, find_file, add_acquisition_date, modify_dcm_header
 import pydicom
 
 # Heudiconv cannot extract correct information from the dcm, it switches dim4 and dim3
@@ -38,7 +38,10 @@ def create_key(template, outtype='nii.gz', annotation_classes=None):
 # ======================================================================================================================
 def filter_files(fl):
     if fl.endswith(".dcm"):
+        # better to add the SatckId and the rest of info separately, otherwise it messes up the header
         add_StackID_file(fl)
+        # fields already exist once you don't anonymize the data
+        # modify_dcm_header(fl)
     return fl
 
 
