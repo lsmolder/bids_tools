@@ -29,6 +29,7 @@
 # TODO: write a script to change dicom folders if the names of mag and phase like 430003 430004, not 001 and 002
 # TODO: write a script to count the number of output from bids and input dcms # bad idea, some files are not necessary like single vol rs
 # TODO: find out why rerunning heudiconv does not work and you have to delete .heudiconv and the data manually
+# TODO: delete the videos with no functional runs
 
 function Usage {
   cat <<USAGE
