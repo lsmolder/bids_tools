@@ -91,3 +91,10 @@ sub-010389629F/
 ValueError: There must be no dates in .json sidecar``
 - So, you have to comment that out in the bids.py file to keep the dates in the json files.
 ![img_1.png](img_1.png)
+
+- Always, keep track of how many nii are generated and compare them to the dicom server to make sure not files are missing:
+```bash
+for folder in /Users/aeed/Documents/Work/BIDS/Menon^AS-MBN/sub*; do
+    echo $folder; 
+    ls ${folder}/*/*/*.json 2>/dev/null | wc -l; 
+done
