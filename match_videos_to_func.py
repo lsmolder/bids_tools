@@ -7,6 +7,8 @@
 import json
 import re
 import glob
+import os
+from datetime import datetime
 
 
 def get_acq_time_json(json_file):
@@ -43,7 +45,8 @@ def get_acq_time_diff(video_file, json_file):
     video_time = datetime.strptime(video_time, time_format)
     json_time = datetime.strptime(json_time, time_format)
     # get the difference between the two
-    time_diff = (video_time - json_time).total_seconds()
+    time_diff = (json_time - video_time).total_seconds()
+    # time_diff = abs(time_diff)
 
     return time_diff
 
@@ -57,20 +60,34 @@ def rename_video(video_file, json_file):
     json_name = os.path.basename(json_name)
     # get the difference between the two
     time_diff = get_acq_time_diff(video_file, json_file)
+
+    # add the orig video time to the name as failsafe
+    video_time = get_acq_time_video(video_file)
+    video_time = video_time.replace(":", "_")
+
+    # get video file size in mb, to exclude kilo bytes videos
+    video_size = os.path.getsize(video_file) / 1_000_000
     # rename the video file
-    if 4 * 60 <= time_diff <= 6 * 60:
+    if (0.01 * 60 <= time_diff <= 3 * 60) and video_size > 5:
         # the video was recorded after the functional run
         # add the time difference to the video time
-        new_video_name = f"{json_name}{video_ext}"
+        new_video_name = f"{json_name}_{video_time}{video_ext}"
         new_video_name = os.path.join(os.path.dirname(video_file), new_video_name)
         os.rename(video_file, new_video_name)
+        return True
 
 
 def match_videos_func_ses(session_dir):
-    func_runs = glob.glob(os.path.join(session_dir, 'func', '*bold.json'))
-    videos = glob.glob(os.path.join(session_dir, 'video', '*'))
-    for video in videos:
-        for func_run in func_runs:
-            rename_video(video, func_run)
+    func_runs = glob.glob(os.path.join(session_dir, 'func', '*mag_bold.json'))
+    videos = glob.glob(os.path.join(session_dir, 'videos', '20*'))
+
+    for func_run in func_runs:
+        for video in videos:
+            response = rename_video(video, func_run)
+            if response:
+                videos.remove(video)
+    # delete any remaining unnamed video
+    rem_videos = glob.glob(os.path.join(session_dir, 'videos', '20*'))
+    [os.remove(rem_vid) for rem_vid in rem_videos if os.path.isfile(rem_vid)]
 
 
