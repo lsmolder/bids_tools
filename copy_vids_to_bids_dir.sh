@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# you need to verify important videos manually
+# some videos have a big gap like 7 min between their timestamp and that of the nifti
+# TODO: maybe for these videos we need to add 5 min or something
 # navigate to the videos dir
 cd /Users/aeed/Dropbox/Amr_MR_camera_videos/amr || exit
 bids_dir="/Users/aeed/Documents/Work/BIDS/Menon^AS-MBN"
