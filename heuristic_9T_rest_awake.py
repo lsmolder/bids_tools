@@ -165,7 +165,7 @@ def infotodict(seqinfo):
     # we need the json files as well
     # TODO: no of volumes
     for idx, s in enumerate(seqinfo):
-        if 'T2_TurboRARE' or 'T2_' in s.protocol_name and 'VOLUME' in s.image_type:
+        if ('T2_TurboRARE' or 'T2_' in s.protocol_name) and ('VOLUME' in s.image_type) and (len(s.image_type) == 4):
             info[t2w].append(s.series_id)
 
         if 'T1_FLASH_3D' in s.protocol_name:
@@ -200,13 +200,15 @@ def infotodict(seqinfo):
         # we have some subjects with 20 and 40 averages, combine them to multiple avgs
         if ('epi' or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
-                "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
+                "avg" in s.series_description.lower()) and all(
+            task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
             info[func_rest_multi_avg_R].append(s.series_id)
 
         if ('epi' or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
-                "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
+                "avg" in s.series_description.lower()) and all(
+            task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
             info[func_rest_multi_avg_RV].append(s.series_id)
 
