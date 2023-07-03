@@ -61,63 +61,63 @@ def infotodict(seqinfo):
     # ==================================================================================================================
     # resting-state
     func_rest_magnitude_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-rest_run-{item:01d}_part-mag_bold')
     func_rest_phase_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-rest_run-{item:01d}_part-phase_bold')
 
     func_rest_magnitude_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-rest_run-{item:01d}_part-mag_bold')
     func_rest_phase_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-rest_run-{item:01d}_part-phase_bold')
 
     # single resting-state volume with 20 and 40 averages
     # someitmes, I acquired 20 avg, sometimes 40 avg
     # func_rest_40avg_R = create_key(
-    #     'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_40avg')
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-rest_run-{item:01d}_bold_40avg')
     # func_rest_40avg_RV = create_key(
-    #     'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_40avg')
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-rest_run-{item:01d}_bold_40avg')
     #
     # func_rest_20avg_R = create_key(
-    #     'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_20avg')
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-rest_run-{item:01d}_bold_20avg')
     # func_rest_20avg_RV = create_key(
-    #     'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_20avg')
+    #     'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-rest_run-{item:01d}_bold_20avg')
     func_rest_multi_avg_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-rest_run-{item:01d}_bold_multi_avg')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-rest_run-{item:01d}_bold_multi_avg')
     func_rest_multi_avg_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-rest_run-{item:01d}_bold_multi_avg')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-rest_run-{item:01d}_bold_multi_avg')
     # ==================================================================================================================
     # tasks: visual
     func_task_visual_magnitude_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-visual_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-visual_run-{item:01d}_part-mag_bold')
     func_task_visual_phase_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-visual_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-visual_run-{item:01d}_part-phase_bold')
 
     func_task_visual_magnitude_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-visual_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-visual_run-{item:01d}_part-mag_bold')
     func_task_visual_phase_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-visual_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-visual_run-{item:01d}_part-phase_bold')
     # ==================================================================================================================
     # tasks: whisker
     func_task_whisker_magnitude_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-whisker_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-whisker_run-{item:01d}_part-mag_bold')
     func_task_whisker_phase_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-whisker_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-whisker_run-{item:01d}_part-phase_bold')
 
     func_task_whisker_magnitude_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-whisker_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-whisker_run-{item:01d}_part-mag_bold')
     func_task_whisker_phase_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-whisker_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-whisker_run-{item:01d}_part-phase_bold')
     # ==================================================================================================================
     # tasks: visual_whisker
     func_task_visual_whisker_magnitude_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-visual_whisker_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-visual_whisker_run-{item:01d}_part-mag_bold')
     func_task_visual_whisker_phase_R = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-IS_{session}_task-visual_whisker_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-PA_{session}_task-visual_whisker_run-{item:01d}_part-phase_bold')
 
     func_task_visual_whisker_magnitude_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-visual_whisker_run-{item:01d}_part-mag_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-visual_whisker_run-{item:01d}_part-mag_bold')
     func_task_visual_whisker_phase_RV = create_key(
-        'sub-{subject}/{session}/func/sub-{subject}_dir-SI_{session}_task-visual_whisker_run-{item:01d}_part-phase_bold')
+        'sub-{subject}/{session}/func/sub-{subject}_dir-AP_{session}_task-visual_whisker_run-{item:01d}_part-phase_bold')
     # =============================================================================================================================
     # the adj B0MAP, that's not part of the standard bids
     fmap = create_key('sub-{subject}/{session}/fmap/sub-{subject}_{session}_b0map')
