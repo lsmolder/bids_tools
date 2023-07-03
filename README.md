@@ -33,9 +33,10 @@ DICOM
             └── 5001
                 └── Menon^AS-MBN^^^^.MR.Menon^AS-MBN.5001.1.20221119.BF04DF23.dcm
 ```
-**The dcm2bids.sh takes the zipped file, animal id, session no, type of fmri data (if any), output dir, and a heuristic file**
+**To run the DICOM to BIDs conversion, simply run the dcm2bids.sh script with the necessary arguments. It takes the zipped file, animal id, session no, type of fmri data (if any), output dir, and a heuristic file**
 
 
+Example:
 ```
 >>> ./dcm2bids.sh \
 -z /Users/aeed/Documents/Work/bids_tools/2.16.756.5.5.200.8323328.47756.1669482679.1142.zip   \

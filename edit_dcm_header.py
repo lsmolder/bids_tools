@@ -107,9 +107,20 @@ def modify_dcm_header(dcm_path):
     # these fiedls already exist, you don't need them
     ds.AcquisitionDate = ds.SeriesDate
     ds.AcquisitionTime = ds.SeriesTime
-    ds.RepetitionTime = float(ds.SharedFunctionalGroupsSequence[0].MRTimingAndRelatedParametersSequence[0].RepetitionTime)
-    ds.EchoTime = float(ds.SharedFunctionalGroupsSequence[0].MREchoSequence[0].EffectiveEchoTime)
+    # Some files don't have the following fields. Account for these situation using try/except.
+    try:
+        ds.RepetitionTime = float(ds.SharedFunctionalGroupsSequence[0].MRTimingAndRelatedParametersSequence[0].RepetitionTime)
+    except:
+        print("No MR timing and related parameter field for this file.")
+    try:
+        ds.EchoTime = float(ds.SharedFunctionalGroupsSequence[0].MREchoSequence[0].EffectiveEchoTime)
+    except:
+        print("No MR echo sequence field for this file.")
     ds.SliceThickness = float(ds.SharedFunctionalGroupsSequence[0].PixelMeasuresSequence[0].SliceThickness)
+    try:
+        ds.ImageOrientationPatient = ds.SharedFunctionalGroupsSequence[0].PlaneOrientationSequence[0].ImageOrientationPatient
+    except:
+        print("No plane orientation sequence field found for this file.")
 
     ds.PatientAge = str(get_subj_age(ds.SeriesDate, ds.PatientBirthDate))
     # it will overwrite the original file
