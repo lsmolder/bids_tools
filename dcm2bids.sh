@@ -119,8 +119,8 @@ heudiconv \
   --heuristic "${HEURISTIC}" \
   --converter dcm2niix \
   --bids \
-  --overwrite \
-  --dcmconfig "dcm2niix_config.json"
+  --overwrite 
+#  --dcmconfig "/Users/samlaxer/Documents/dev/bids_tools/dcm2niix_config.json"
 #  --dcmconfig "/Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json"
 
 # delete the dicom folder
