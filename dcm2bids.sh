@@ -53,7 +53,7 @@ Compulsory arguments:
 
      -d:  directory where you want to put your nifti BIDS output (abspath)
 
-     -f:  heurisitc file to use (heuristic_9T.py or heuristic_9T_Brown^TBI2AD.py)
+     -f:  heurisitc file to use (heuristic_9T_rest_awake.py or heuristic_9T_Brown^TBI2AD.py)
 
 
 
@@ -92,7 +92,7 @@ while getopts "h:z:i:s:d:f:" OPT; do
   d) # output bids dir
     BIDS_DIR=$OPTARG
     ;;
-  f) # output bids dir
+  f) # heuristic file
     HEURISTIC=$OPTARG
     ;;
   \?) # getopts issues an error message
@@ -120,7 +120,8 @@ heudiconv \
   --converter dcm2niix \
   --bids \
   --overwrite \
-  --dcmconfig "/Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json"
+  --dcmconfig "dcm2niix_config.json"
+#  --dcmconfig "/Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json"
 
 # delete the dicom folder
 rm -rf "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm

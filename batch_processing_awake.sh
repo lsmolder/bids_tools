@@ -1,9 +1,9 @@
 #!/bin/bash
-# use the bids_tools to ocnvert the raw data into bids format
+# use the bids_tools to convert the raw data into bids format
 # I downloaded all the subjects in one folder from the dicom server
 
-# define the bids output dir to stroe all subjects
-# you dow load the dicom of each animal and it contains all the sessions
+# define the bids output dir to store all subjects
+# you download the dicom of each animal and it contains all the sessions
 
 # define your heuristic python script
 heuristic="/Users/aeed/Documents/Work/bids_tools/bids_tools/heuristic_9T_rest_awake.py"
