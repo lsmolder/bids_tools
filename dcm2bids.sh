@@ -70,6 +70,7 @@ USAGE
   exit 1
 }
 
+# Check if first argument is "-h" OR if no arguments are passed to script
 if [[ "$1" == "-h" || $# -eq 0 ]]; then
   Usage >&2
 fi
@@ -119,8 +120,8 @@ heudiconv \
   --heuristic "${HEURISTIC}" \
   --converter dcm2niix \
   --bids \
-  --overwrite 
-#  --dcmconfig "/Users/samlaxer/Documents/dev/bids_tools/dcm2niix_config.json"
+  --overwrite \
+  --dcmconfig /Users/samlaxer/Documents/dev/bids_tools/dcm2niix_config.json
 #  --dcmconfig "/Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json"
 
 # delete the dicom folder

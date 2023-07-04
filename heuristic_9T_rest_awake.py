@@ -165,46 +165,47 @@ def infotodict(seqinfo):
     # we need the json files as well
     # TODO: no of volumes
     for idx, s in enumerate(seqinfo):
-        if 'T2_TurboRARE' or 'T2_' in s.protocol_name:
+        #if ('T2_TurboRARE' or 'T2_' in s.protocol_name) and ('VOLUME' in s.image_type) and (len(s.image_type) == 4):
+        if (('T2_TurboRARE'  in s.protocol_name) or ('T2_' in s.protocol_name)) and (len(s.image_type) == 4):
             info[t2w].append(s.series_id)
 
         if 'T1_FLASH_3D' in s.protocol_name:
             info[t1w].append(s.series_id)
         # ==================================================rest========================================================
         # if the name does not contain "_RV_" then it is a normal phase
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 1) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_magnitude_R].append(s.series_id)
         #
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 2) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reversed phase
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 1) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_magnitude_RV].append(s.series_id)
 
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 2) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_phase_RV].append(s.series_id)
         # ============================================40 or 20avg=======================================================
         # we have some subjects with 20 and 40 averages, combine them to multiple avgs
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
                 "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
             info[func_rest_multi_avg_R].append(s.series_id)
 
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
                 "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
@@ -218,14 +219,14 @@ def infotodict(seqinfo):
         # and all(task.lower() not in s.series_description.lower() for task in tasks) \ and 'VOLUME' in s.image_type:
         # info[func_rest_20avg_RV].append(s.series_id)
         # ===============================================visual=========================================================
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_magnitude_R].append(s.series_id)
         #
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
@@ -233,28 +234,28 @@ def infotodict(seqinfo):
             info[func_task_visual_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reversed phase
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_magnitude_RV].append(s.series_id)
 
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_phase_RV].append(s.series_id)
         # =================================================whisker======================================================
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_whisker_magnitude_R].append(s.series_id)
         #
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
@@ -262,28 +263,28 @@ def infotodict(seqinfo):
             info[func_task_whisker_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reveresed phase
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_whisker_magnitude_RV].append(s.series_id)
 
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_whisker_phase_RV].append(s.series_id)
         # ==================================================visual and whisker==========================================
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_whisker_magnitude_R].append(s.series_id)
         #
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" not in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
@@ -291,14 +292,14 @@ def infotodict(seqinfo):
             info[func_task_visual_whisker_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reversed phase
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_whisker_magnitude_RV].append(s.series_id)
 
-        if ('EPI' or 'T2star' in s.protocol_name) and (
+        if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
                 "_RV_" in s.series_description) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
