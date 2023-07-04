@@ -165,8 +165,7 @@ def infotodict(seqinfo):
     # we need the json files as well
     # TODO: no of volumes
     for idx, s in enumerate(seqinfo):
-        #if ('T2_TurboRARE' or 'T2_' in s.protocol_name) and ('VOLUME' in s.image_type) and (len(s.image_type) == 4):
-        if (('T2_TurboRARE'  in s.protocol_name) or ('T2_' in s.protocol_name)) and (len(s.image_type) == 4):
+        if ('T2_TurboRARE' in s.protocol_name or 'T2_' in s.protocol_name) and ('VOLUME' in s.image_type) and (len(s.image_type) == 4):
             info[t2w].append(s.series_id)
 
         if 'T1_FLASH_3D' in s.protocol_name:
