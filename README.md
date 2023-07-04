@@ -93,6 +93,12 @@ ValueError: There must be no dates in .json sidecar``
 - So, you have to comment that out in the bids.py file to keep the dates in the json files.
 ![img_1.png](img_1.png)
 
+- To add an extra field in the dcminfo.tsv file such as the image_orientation, you have:
+  - first, to add one more element to the seqinfo_fields in the utils.py file
+  ![img_4.png](img_4.png)
+  - second, you need to add this field in dicoms.py file
+  ![img_3.png](img_3.png)
+  
 - Always, keep track of how many nii are generated and compare them to the dicom server to make sure not files are missing:
 ```bash
 for folder in /Users/aeed/Documents/Work/BIDS/Menon^AS-MBN/sub*; do
