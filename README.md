@@ -90,7 +90,7 @@ sub-010389629F/
 - However, there is a function in bids.py called "tuneup_bids_json_files" to override that and remove any dates from the json files.
 - if you try to use this flag, it will return this error ``ValueError("There must be no dates in .json sidecar")
 ValueError: There must be no dates in .json sidecar``
-- So, you have to comment that out in the bids.py file to keep the dates in the json files.
+- So, you have to comment that out in the `bids.py` file to keep the dates in the json files.
 ![img_1.png](img_1.png)
 
 - To add an extra field in the dcminfo.tsv file such as the image_orientation, you have:
