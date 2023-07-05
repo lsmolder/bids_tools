@@ -1,5 +1,10 @@
 # BIDS TOOLS
 * Scripts to organize 9.4T data and videos into BIDS format
+### UPDATE
+* I ahve mdofiied the heudiconv library to allow de anonmyzation and adding the image_orientation infor in the dcminfo.tsv file
+* Now, you can install the modified version from here:
+
+`>>> pip install git+https://github.com/amrka/heudiconv.git`
 * The data from the dicom server is downloaded as a zipped file containing all the data in dcm format
 * The data (after unzipping it) is usually organized as follow:
 
