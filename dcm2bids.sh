@@ -78,7 +78,7 @@ if [[ "$1" == "-h" || $# -eq 0 ]]; then
   Usage >&2
 fi
 
-while getopts "h:z:i:s:d:f:" OPT; do
+while getopts "h:z:i:s:d:f:c:" OPT; do
   case $OPT in
   h) #help
     Usage
