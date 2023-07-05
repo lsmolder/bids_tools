@@ -12,8 +12,9 @@ import pydicom
 # define a task list to check if the series description has any one of those words
 # you consider it as resting state
 tasks = ["visual", "whisker"]
-PA = (1, 0, 0, 0, -1, 0)
-AP = (-1, 0, 0, 0, 1, 0)
+# the 1st three elements are not always fixed between acquisitions and projects in image_orientation
+PA = (0, -1, 0)
+AP = (0, 1, 0)
 
 # give the DICOM directory and it will navigate to where the files are
 # use --files flag with the folder you get from unzipping
@@ -175,60 +176,60 @@ def infotodict(seqinfo):
         # ==================================================rest========================================================
         # if the name does not contain "_RV_" then it is a normal phase
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) \
+                s.image_orientation == PA[-3:]) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 1) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_magnitude_R].append(s.series_id)
         #
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) \
+                s.image_orientation == PA[-3:]) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 2) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_phase_R].append(s.series_id)
         #
         # # if the name contains "_RV_" then it is a reversed phase
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) \
+                s.image_orientation == AP[-3:]) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 1) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_magnitude_RV].append(s.series_id)
 
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) \
+                s.image_orientation == AP[-3:]) \
                 and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and (int(s.dcm_dir_name[-1]) == 2) and 'NON_PARALLEL' in s.image_type:
             info[func_rest_phase_RV].append(s.series_id)
         # ============================================40 or 20avg=======================================================
         # we have some subjects with 20 and 40 averages, combine them to multiple avgs
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) and (
+                s.image_orientation == PA[-3:]) and (
                 "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
             info[func_rest_multi_avg_R].append(s.series_id)
 
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) and (
+                s.image_orientation == AP[-3:]) and (
                 "avg" in s.series_description.lower()) and all(task.lower() not in s.series_description.lower() for task in tasks) \
                 and 'VOLUME' in s.image_type:
             info[func_rest_multi_avg_RV].append(s.series_id)
 
-        # if ('EPI' or 'T2star' in s.protocol_name) and ( s.image_orientation == PA) and ( "20avg" in
+        # if ('EPI' or 'T2star' in s.protocol_name) and ( s.image_orientation == PA[-3:) and ( "20avg" in
         # s.series_description) and all(task.lower() not in s.series_description.lower() for task in tasks) \ and
         # 'VOLUME' in s.image_type: info[func_rest_20avg_R].append(s.series_id)
         #
-        # if ('EPI' or 'T2star' in s.protocol_name) and ( s.image_orientation == AP) and ( "20avg" in s.series_description)
+        # if ('EPI' or 'T2star' in s.protocol_name) and ( s.image_orientation == AP[-3:) and ( "20avg" in s.series_description)
         # and all(task.lower() not in s.series_description.lower() for task in tasks) \ and 'VOLUME' in s.image_type:
         # info[func_rest_20avg_RV].append(s.series_id)
         # ===============================================visual=========================================================
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) and (
+                s.image_orientation == PA[-3:]) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_magnitude_R].append(s.series_id)
         #
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) and (
+                s.image_orientation == PA[-3:]) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
@@ -236,28 +237,28 @@ def infotodict(seqinfo):
         #
         # # if the name contains "_RV_" then it is a reversed phase
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) and (
+                s.image_orientation == AP[-3:]) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_magnitude_RV].append(s.series_id)
 
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) and (
+                s.image_orientation == AP[-3:]) and (
                 "visual" in s.series_description.lower()) and (
                 "whisker" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_phase_RV].append(s.series_id)
         # =================================================whisker======================================================
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) and (
+                s.image_orientation == PA[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_whisker_magnitude_R].append(s.series_id)
         #
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) and (
+                s.image_orientation == PA[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
@@ -265,28 +266,28 @@ def infotodict(seqinfo):
         #
         # # if the name contains "_RV_" then it is a reveresed phase
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) and (
+                s.image_orientation == AP[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_whisker_magnitude_RV].append(s.series_id)
 
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) and (
+                s.image_orientation == AP[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" not in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_whisker_phase_RV].append(s.series_id)
         # ==================================================visual and whisker==========================================
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) and (
+                s.image_orientation == PA[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_whisker_magnitude_R].append(s.series_id)
         #
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == PA) and (
+                s.image_orientation == PA[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
@@ -294,14 +295,14 @@ def infotodict(seqinfo):
         #
         # # if the name contains "_RV_" then it is a reversed phase
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) and (
+                s.image_orientation == AP[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 1) \
                 and 'NON_PARALLEL' in s.image_type:
             info[func_task_visual_whisker_magnitude_RV].append(s.series_id)
 
         if ('epi' in s.protocol_name.lower() or 't2star' in s.protocol_name.lower()) and (
-                s.image_orientation == AP) and (
+                s.image_orientation == AP[-3:]) and (
                 "whisker" in s.series_description.lower()) and (
                 "visual" in s.series_description.lower()) and (int(s.dcm_dir_name[-1]) == 2) \
                 and 'NON_PARALLEL' in s.image_type:
