@@ -55,6 +55,8 @@ Compulsory arguments:
 
      -f:  heurisitc file to use (heuristic_9T_rest_awake.py or heuristic_9T_Brown^TBI2AD.py)
 
+     -c:  absolute path to config file
+
 
 
 Example:
@@ -65,11 +67,13 @@ $(basename "$0") \
 -s 1 \
 -d /Users/aeed/Documents/Work/Menon^AS-MBN/01_389630_M/20221119/BIDS \
 -f heuristic_9T.py
+-c /Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json
 
 USAGE
   exit 1
 }
 
+# Check if first argument is "-h" OR if no arguments are passed to script
 if [[ "$1" == "-h" || $# -eq 0 ]]; then
   Usage >&2
 fi
@@ -94,6 +98,9 @@ while getopts "h:z:i:s:d:f:" OPT; do
     ;;
   f) # heuristic file
     HEURISTIC=$OPTARG
+    ;;
+  c) # config file
+    CONFIG_FILE=$OPTARG
     ;;
   \?) # getopts issues an error message
     echo "$Usage" >&2
@@ -120,8 +127,7 @@ heudiconv \
   --converter dcm2niix \
   --bids \
   --overwrite \
-  --dcmconfig "dcm2niix_config.json"
-#  --dcmconfig "/Users/aeed/Documents/Work/bids_tools/bids_tools/dcm2niix_config.json"
+  --dcmconfig "${CONFIG_FILE}"
 
 # delete the dicom folder
 rm -rf "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm
