@@ -1,6 +1,10 @@
 import os
 import glob
 
+
+PA = (0, -1, 0)
+AP = (0, 1, 0)
+
 # give the DICOM directory and it will navigate to where the files are
 # use --files flag with the folder you get from unzipping
 # do not use -d flag
@@ -43,11 +47,11 @@ def infotodict(seqinfo):
     for idx, s in enumerate(seqinfo):
         if 'T2_' in s.protocol_name:
             info[t2w].append(s.series_id)
-        # if the name does not contain "_RV_" then it is a normal phase
-        if ('T2star' in s.protocol_name) and ("_RV_" not in s.series_description):
+        # the 1st three elements are not always fixed between acquisitions and projects in image_orientation
+        if ('T2star' in s.protocol_name) and (s.image_orientation[-3:] == PA):
             info[func_rest_R].append(s.series_id)
         #
-        if ('T2star' in s.protocol_name) and ("_RV_" in s.series_description):
+        if ('T2star' in s.protocol_name) and (s.image_orientation[-3:] == AP):
             info[func_rest_RV].append(s.series_id)
 
     return info
