@@ -1,5 +1,9 @@
 # BIDS TOOLS
-* Scripts to organize 9.4T data and videos into BIDS format
+* Scripts to organize 15.2T data and videos into BIDS format
+
+## For Schmitz^Trip-KI-Char Project ONLY
+* For those working on this project, create a virtual environment with the dependencies under requirements.txt.
+* When running Dcm2bids use the "heuristic_15T_Schmitz^Trip-KI-Char.py" heuristic file 
 ### UPDATE
 * I have modified the heudiconv library to allow de anonmyzation and adding the image_orientation infor in the dcminfo.tsv file
 * Now, you can install the modified version from here:
